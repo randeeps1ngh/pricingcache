@@ -55,20 +55,20 @@ public class PriceCacheDataRepositoryTest {
     @Test
     public void priceDataRepository() {
 
-        Vendor dealogic = new Vendor();
-        dealogic.setVendorName("DealLogic");
+        Vendor deallogic = new Vendor();
+        deallogic.setVendorName("DealLogic");
 
-        vendorRepository.save(dealogic);
+        vendorRepository.save(deallogic);
 
         TradeInstrumentPrice tradeInstrumentPrice4 = new TradeInstrumentPrice();
-        tradeInstrumentPrice4.setVendor(dealogic);
+        tradeInstrumentPrice4.setVendor(deallogic);
         tradeInstrumentPrice4.setTradeInstrument("GBPUSD");
         tradeInstrumentPrice4.setPrice(1.4);
 
         priceCacheDataRepository.save(tradeInstrumentPrice4);
 
         TradeInstrumentPrice tradeInstrumentPrice5 = new TradeInstrumentPrice();
-        tradeInstrumentPrice5.setVendor(dealogic);
+        tradeInstrumentPrice5.setVendor(deallogic);
         tradeInstrumentPrice5.setTradeInstrument("GBPUSD");
         tradeInstrumentPrice5.setPrice(1.5);
 
@@ -76,16 +76,52 @@ public class PriceCacheDataRepositoryTest {
 
 
         TradeInstrumentPrice tradeInstrumentPrice6 = new TradeInstrumentPrice();
-        tradeInstrumentPrice6.setVendor(dealogic);
+        tradeInstrumentPrice6.setVendor(deallogic);
         tradeInstrumentPrice6.setTradeInstrument("GBPUSD");
         tradeInstrumentPrice6.setPrice(1.6);
 
         priceCacheDataRepository.save(tradeInstrumentPrice6);
 
-        List<TradeInstrumentPrice> tradeInstrumentPriceList = priceCacheDataRepository.findByVendorId(dealogic.getId());
+        List<TradeInstrumentPrice> tradeInstrumentPriceList = priceCacheDataRepository.findByVendorId(deallogic.getId());
 
-        assertThat(tradeInstrumentPriceList.get(0).getVendor().equals(dealogic.getVendorName()));
-        assertEquals(3,tradeInstrumentPriceList.size());
+        assertThat(tradeInstrumentPriceList.get(0).getVendor().equals(deallogic.getVendorName()));
+        assertEquals("DealLogic",tradeInstrumentPriceList.get(0).getVendor().getVendorName());
+    }
+
+
+    @Test
+    public void priceDataRepositoryTestForInstrument() {
+
+        Vendor deallogic = new Vendor();
+        deallogic.setVendorName("DealLogic");
+
+        vendorRepository.save(deallogic);
+
+        TradeInstrumentPrice tradeInstrumentPrice4 = new TradeInstrumentPrice();
+        tradeInstrumentPrice4.setVendor(deallogic);
+        tradeInstrumentPrice4.setTradeInstrument("GBPUSD");
+        tradeInstrumentPrice4.setPrice(1.4);
+
+        priceCacheDataRepository.save(tradeInstrumentPrice4);
+
+        TradeInstrumentPrice tradeInstrumentPrice5 = new TradeInstrumentPrice();
+        tradeInstrumentPrice5.setVendor(deallogic);
+        tradeInstrumentPrice5.setTradeInstrument("GBPUSD");
+        tradeInstrumentPrice5.setPrice(1.5);
+
+        priceCacheDataRepository.save(tradeInstrumentPrice5);
+
+
+        TradeInstrumentPrice tradeInstrumentPrice6 = new TradeInstrumentPrice();
+        tradeInstrumentPrice6.setVendor(deallogic);
+        tradeInstrumentPrice6.setTradeInstrument("GBPUSD");
+        tradeInstrumentPrice6.setPrice(1.6);
+
+        priceCacheDataRepository.save(tradeInstrumentPrice6);
+
+        List<TradeInstrumentPrice> tradeInstrumentPriceList = priceCacheDataRepository.findByTradeInstrument(tradeInstrumentPrice4.getTradeInstrument());
+
+        assertThat(tradeInstrumentPriceList.get(0).getVendor().equals(deallogic.getVendorName()));
         assertEquals("DealLogic",tradeInstrumentPriceList.get(0).getVendor().getVendorName());
     }
 }

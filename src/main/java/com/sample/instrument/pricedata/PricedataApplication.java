@@ -37,7 +37,7 @@ public class PricedataApplication implements CommandLineRunner {
 		vendorRepository.save(bloomberg);
 
 		Vendor dealogic = new Vendor();
-		dealogic.setVendorName("Dealogic");
+		dealogic.setVendorName("DealLogic");
 
 		vendorRepository.save(dealogic);
 
@@ -83,16 +83,10 @@ public class PricedataApplication implements CommandLineRunner {
 		tradeInstrumentPrice6.setTradeInstrument("GBPUSD");
 		tradeInstrumentPrice6.setPrice(1.6);
 
-
 		priceCacheDataRepository.save(tradeInstrumentPrice6);
-
 
 		priceCacheDataRepository.findByVendorId(bloomberg.getId()).stream().forEach(tradeInstrumentPrice ->
 		System.out.println(tradeInstrumentPrice.getTradeInstrument()));
 
-
 	}
-
-
-
 }
